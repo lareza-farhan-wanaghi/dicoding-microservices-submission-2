@@ -1,0 +1,26 @@
+apiVersion: apps/v1 # Specifies the Kubernetes API version being used.
+kind: Deployment  # Defines the Kubernetes resource type as a Deployment
+metadata:
+  name: karsajobs-ui-deploy # Name of the Deployment
+  labels:
+    app: karsajobs-ui # Label for the app
+spec:
+  replicas: 1 # Number of desired replicas for the application
+  selector:
+    matchLabels:
+      app: karsajobs-ui # Selector label for the app
+      tier: frontend # Selector label for the tier (frontend in this case)
+  template:
+    metadata:
+      labels:
+        app: karsajobs-ui # Label for the app within the pod
+        tier: frontend # Label for the tier within the pod
+    spec:
+      containers:
+      - name: karsajobs-ui # Name of the container
+        image: ghcr.io/lareza-farhan-wanaghi/karsajobs-ui:latest # Docker image used for the container
+        ports:
+        - containerPort: 8000 # Port to expose within the container
+        env:
+        - name: VUE_APP_BACKEND
+          value: "https://friendly-potato-j6577xvj4wq3qwv4-30007.app.github.dev" # Environment variable for the backend URL

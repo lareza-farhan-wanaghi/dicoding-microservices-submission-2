@@ -1,0 +1,15 @@
+apiVersion: v1  # Specifies the Kubernetes API version being used (v1 in this case).
+kind: Service    # Specifies the type of Kubernetes resource being defined (Service in this case).
+metadata:
+  name: karsajobs-ui-svc  # Name of the service being created.
+  labels:
+    app: karsajobs-ui   # Label for the application being associated with this service.
+spec:
+  type: NodePort  # Specifies the type of service as NodePort (accessible externally via a port on each node).
+  selector:
+    tier: frontend  # Selects the pods to include in this service based on the specified label.
+  ports:
+  - port: 8000   # Specifies the port on which the service will listen within the cluster.
+    name: karsajobs-ui   # Name for the port being used by the service.
+    protocol: TCP   # Specifies the protocol being used (TCP in this case).
+    nodePort: 30008   # Specifies the port on the node that will be forwarded to the service's port.

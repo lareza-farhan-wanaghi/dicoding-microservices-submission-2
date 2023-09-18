@@ -101,7 +101,7 @@
 
 5. Add an action secret for the forked repository with the value of the token generated in step 4. Follow these steps:
 
-   1. Go to the forked repository webpage and navigate to the "Settings" tab.
+   1. Go to the forked repository GitHub webpage and navigate to the "Settings" tab.
    2. Scroll down and click the "Secrets and variables" dropdown menu under the "Security" panel, then click "New repository secret."
 
       ![Screenshot 2023-09-16 at 13.27.00.png](_resources/Screenshot%202023-09-16%20at%2013.27.00.png)
@@ -151,17 +151,17 @@
 ### 2. Building and Pushing the karsajobs (backend) image
 
 1. Navigate to the karsajobs project
-   ```
+   ```bash
    cd <Project Root Directory>
    cd karsajobs
    ```
 
 2. Add the `build_push_image_karsajobs.sh` script to build and push the image.
-   ```
+   ```bash
    nano build_push_image_karsajobs.sh
    ```
    Copy and paste the following content:
-   ```
+   ```bash
    #!/bin/bash
 
    # Build Docker image
@@ -175,12 +175,12 @@
    ```
 
 3. Add a file to specify a workflow that includes steps for implementing the CI pipeline.
-   ```
+   ```bash
    mkdir .github .github/workflows
    nano .github/workflows/config.yml
    ```
    Copy and paste the following content:
-   ```
+   ```yaml
    name: CI for karsajobs  # Descriptive name for your CI workflow
 
    on:
@@ -212,7 +212,7 @@
    ```
 
 4. Commit the changes and push.
-   ```
+   ```bash
    git add .
    git commit -m "Added the build_push_image_karsajobs.sh file to build and push the image"
    git push -u origin karsajobs
@@ -237,17 +237,17 @@
 ### 3. Building and Pushing karsajobs-ui (frontend) image
 
 1. Navigate to the karsajobs-ui folder.
-   ```
+   ```bash
    cd <Project Root Directory>
    cd karsajobs-ui
    ```
 
 2. Add the `build_push_image_karsajobs_ui.sh` script to build and push the image.
-   ```
+   ```bash
    nano build_push_image_karsajobs_ui.sh
    ```
    Copy and paste the following content:
-   ```
+   ```bash
    #!/bin/bash
 
    # Build Docker image
@@ -261,13 +261,13 @@
    ```
 
 3. Add a file to specify a workflow that includes steps to be executed as part of the CI pipeline.
-   ```
+   ```bash
    mkdir .github .github/workflows
    nano .github/workflows/config.yml
    ```
 
    Copy and paste the following content:
-   ```
+   ```yaml
    name: CI for karsajobs-ui  # Define a descriptive name for this GitHub Actions workflow
 
    on:
@@ -296,7 +296,7 @@
    ```
 
 4. Commit the changes and push.
-   ```
+   ```bash
    git add .
    git commit -m "Added the build_push_image_karsajobs_ui.sh file to build and push the image"
    git push -u origin karsajobs-ui
@@ -320,13 +320,13 @@
 ### 4. Deploying MongoDB on Kubernetes
 
 1. Navigate to the MongoDB manifest folder.
-   ```
+   ```bash
    cd <Project Root Directory>
    cd kubernetes/mongodb
    ```
 
 2. Create a Kubernetes manifest script for the ConfigMap.
-   ```
+   ```bash
    nano mongo-configmap.yml
    ```
    Copy and paste the following content:
@@ -347,7 +347,7 @@
    ```
 
 3. Create a Kubernetes manifest script for the PersistentVolume and PersistentVolumeClaim.
-   ```
+   ```bash
    nano mongo-pv-pvc.yml
    ```
    Copy and paste the following content:
@@ -386,7 +386,7 @@
    ```
 
 4. Create a Kubernetes manifest script for the Secret.
-   ```
+   ```bash
    nano mongo-secret.yml
    ```
    Copy and paste the following content:
@@ -404,7 +404,7 @@
    ```
 
 5. Create a Kubernetes manifest script for the Service.
-   ```
+   ```bash
    nano mongo-service.yml
    ```
    Copy and paste the following content:
@@ -425,7 +425,7 @@
    ```
 
 6. Create a Kubernetes manifest script for the StatefulSet.
-   ```
+   ```bash
    nano mongo-statefulset.yml
    ```
    Copy and paste the following content:
@@ -483,12 +483,12 @@
    ```
 
 7. Deploy all the MongoDB objects to the Kubernetes cluster.
-   ```
+   ```bash
    kubectl apply -f .
    ```
 
 8. Confirm that the MongoDB pod is running.
-   ```
+   ```bash
    kubectl get pods -l app=mongo
    ```
 
@@ -497,13 +497,13 @@
 ### 5. Deploying the Backend on Kubernetes
 
 1. Navigate to the backend folder.
-   ```
+   ```bash
    cd <Project Root Directory>
    cd kubernetes/backend
    ```
 
 2. Create a Kubernetes manifest file for the backend deployment.
-   ```
+   ```bash
    nano karsajobs-deployment.yml
    ```
    Copy and paste the following content:
@@ -549,7 +549,7 @@
    ```
 
 3. Create a manifest file for the backend service:
-   ```
+   ```bash
    nano karsajobs-service.yml
    ```
    Copy and paste the following content:
@@ -573,12 +573,12 @@
    ```
 
 4. Deploy all the backend objects to the Kubernetes cluster.
-   ```
+   ```bash
    kubectl apply -f .
    ```
 
 5. After a backend pod is running, confirm that the backend is connected to the MongoDB correctly by visiting its `/jobs` endpoint. (Note: the Kubernetes cluster provided by Docker Desktop automatically exposes the node port to the host, so you can use localhost in this case. Alternatively, you may need to replace localhost with your node IP address.)
-   ```
+   ```bash
    curl localhost:30007/jobs
    ```
    ![Screenshot 2023-09-16 at 16.35.43.png](_resources/Screenshot%202023-09-16%20at%2016.35.43.png)
@@ -588,13 +588,13 @@
 ### 6. Deploying the Frontend on Kubernetes
 
 1. Navigate to the frontend folder.
-   ```
+   ```bash
    cd <Project Root Directory>
    cd kubernetes/frontend
    ```
 
 2. Create a Kubernetes manifest file for the frontend deployment.
-   ```
+   ```bash
    nano karsajobs-ui-deployment.yml
    ```
    Copy and paste the following content:
@@ -653,7 +653,7 @@
 	```
 
 4. Deploy all the frontend objects to the Kubernetes cluster.
-   ```
+   ```bash
    kubectl apply -f .
    ```
 
@@ -672,24 +672,24 @@
 ### 7. Deploying Prometheus and Grafana
 
 1. Create a Namespace for Monitoring:
-   ```
+   ```bash
    kubectl create namespace monitoring
    ```
 
 2. Add Helm Repositories for Grafana and Prometheus:
-   ```
+   ```bash
    helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
    helm repo add grafana https://grafana.github.io/helm-charts
    helm repo update
    ```
 
 3. Deploy Prometheus on Kubernetes:
-   ```
+   ```bash
    helm install prometheus prometheus-community/prometheus --namespace monitoring
    ```
 
 4. Deploy Grafana on Kubernetes:
-   ```
+   ```bash
    helm install grafana grafana/grafana --namespace monitoring
    ```
 

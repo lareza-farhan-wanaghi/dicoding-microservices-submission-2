@@ -2,7 +2,7 @@
 
 ## Objective
 
-1. Begin by forking [this repository](https://github.com/dicodingacademy/a433-microservices/), including all its branches, to your GitHub account, and clone the "karsajobs" (backend) and "karsajobs-ui" (frontend) applications from their respective branches.
+1. Begin by forking [this repository](https://github.com/dicodingacademy/a433-microservices/), including all its branches, to your GitHub account, and clone the "karsajobs" (backend) and "karsajobs-ui" (frontend) applications from their respective branches. Prepare credential tokens and install necessary software.
 
 2. Create a `build_push_image_karsajobs.sh` script in the backend source code and create `build_push_image_karsajobs_ui.sh` in the frontend source code. Each script should do the following:
    - Build a Docker image from the provided Dockerfile in each source code with the name `<GitHub Packages Container Registry>/<Username>/karsajobs:latest"` (for the backend) and `<GitHub Packages Container Registry>/<Username>/karsajobs-ui:latest` (for the frontend).

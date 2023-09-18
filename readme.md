@@ -71,7 +71,7 @@
 
 ### 1. Setting up the project
 
-1. Begin by forking the repository to your personal GitHub account. Ensure that the "Copy main branch only" option is unchecked.
+1. Begin by forking the repository to your personal GitHub account. Uncheck the "Copy main branch only" option.
 
    ![Screenshot 2023-09-12 at 16.33.44.png](_resources/Screenshot%202023-09-12%20at%2016.33.44.png)
 
@@ -102,7 +102,7 @@
 5. Add an action secret for the forked repository with the value of the token generated in step 4. Follow these steps:
 
    1. Go to the forked repository GitHub webpage and navigate to the "Settings" tab.
-   2. Scroll down and click the "Secrets and variables" dropdown menu under the "Security" panel, then click "New repository secret."
+   2. Scroll down and click the "Secrets and variables" dropdown menu under the "Security" panel, then click "Action."
 
       ![Screenshot 2023-09-16 at 13.27.00.png](_resources/Screenshot%202023-09-16%20at%2013.27.00.png)
 
@@ -115,14 +115,14 @@
 
 6. Create a GitHub personal access token with "workflow" access scope for pushing repositories with a workflow used for the GitHub Action CI Pipeline. The steps are similar to those in step 4. After completing the steps, copy the generated token.
 
-7. Adjust the remote URL of the "karsajobs" repository so that it uses the access token generated in step 6 that has the "workflow" permission.
+7. Adjust the git remote URL of the "karsajobs" repository so that it uses the access token generated in step 6 that has the "workflow" permission.
    ```bash
    cd <Project Root Directory>
    cd karsajobs
    git remote set-url origin https://<Your GitHub Username>:<Your Workflow Token>@github.com/<Your GitHub Username>/a433-microservices.git
    ```
 
-8. Adjust the remote URL of the "karsajobs-ui" repository so that it uses the access token generated in step 6 that has the "workflow" permission.
+8. Adjust the git remote URL of the "karsajobs-ui" repository so that it uses the access token generated in step 6 that has the "workflow" permission.
    ```bash
    cd <Project Root Directory>
    cd karsajobs-ui
@@ -150,7 +150,7 @@
 
 ### 2. Building and Pushing the karsajobs (backend) image
 
-1. Navigate to the karsajobs project
+1. Navigate to the karsajobs project.
    ```bash
    cd <Project Root Directory>
    cd karsajobs
@@ -214,7 +214,7 @@
 4. Commit the changes and push.
    ```bash
    git add .
-   git commit -m "Added the build_push_image_karsajobs.sh file to build and push the image"
+   git commit -m "Adding the build_push_image_karsajobs.sh file to build and push the image"
    git push -u origin karsajobs
    ```
 
@@ -298,7 +298,7 @@
 4. Commit the changes and push.
    ```bash
    git add .
-   git commit -m "Added the build_push_image_karsajobs_ui.sh file to build and push the image"
+   git commit -m "Adding the build_push_image_karsajobs_ui.sh file to build and push the image"
    git push -u origin karsajobs-ui
    ```
 
@@ -306,7 +306,7 @@
 
    ![Screenshot 2023-09-16 at 15.20.25.png](_resources/Screenshot%202023-09-16%20at%2015.20.25.png)
 
-6. Go to the main GitHub dashboard of your account and navigate to the "Packages" tab. You should now see the pushed karsajobs image.
+6. Go to the main GitHub dashboard of your account and navigate to the "Packages" tab. You should now see the pushed karsajobs-ui image.
 
    ![Screenshot 2023-09-16 at 15.21.13.png](_resources/Screenshot%202023-09-16%20at%2015.21.13.png)
 
@@ -317,6 +317,7 @@
    4. Select "public" under the "Change visibility" popup. Then type the name of the image in the provided field and click the "I understand the consequences, change package visibility" button.
 
    The "private" label beside the image name should now be hidden.
+
 ### 4. Deploying MongoDB on Kubernetes
 
 1. Navigate to the MongoDB manifest folder.
@@ -332,12 +333,12 @@
    Copy and paste the following content:
    ```yaml
 	apiVersion: v1  # Specifies the Kubernetes API version being used.
-	kind: ConfigMap  # Defines the type of Kubernetes resource being 	created, which is a ConfigMap in this case.
+	kind: ConfigMap  # Defines the type of Kubernetes resource being created, which is a ConfigMap in this case.
 
 	metadata:
-	  name: mongo-configmap  # Specifies the name of the ConfigMap being 	created.
+	  name: mongo-configmap  # Specifies the name of the ConfigMap being created.
 	  labels:
-	    app: mongo  # Defines a label for the ConfigMap, associating it 	with the "mongo" application.
+	    app: mongo  # Defines a label for the ConfigMap, associating it with the "mongo" application.
 
 	data:
 	  mongo.conf: |  # Configures the MongoDB storage settings, specifying the database path.
@@ -353,7 +354,7 @@
    Copy and paste the following content:
    ```yaml
 	apiVersion: v1 # Specifies the Kubernetes API version being used.
-	kind: PersistentVolume  # Defines the Kubernetes resource type as a 	Persistent Volume
+	kind: PersistentVolume  # Defines the Kubernetes resource type as a Persistent Volume
 	metadata:
 	  name: mongo-pv  # Name of the PersistentVolume
 	  labels:
@@ -369,8 +370,8 @@
 
 	---
 
-	apiVersion: v1
-	kind: PersistentVolumeClaim
+	apiVersion: v1 # Specifies the Kubernetes API version being used.
+	kind: PersistentVolumeClaim # Defines the Kubernetes resource type as a Persistent Volume Claim
 	metadata:
 	  name: mongo-pvc  # Name of the PersistentVolumeClaim
 	  labels:
@@ -712,7 +713,7 @@
    kubectl port-forward svc/grafana -n monitoring 3000:80
    ```
 
-2. Visit Grafana in your browser. You will encounter a welcome page with a login form.
+2. Visit Grafana in your browser. You should see Grafana login page.
 
    ![Screenshot 2023-09-16 at 17.29.14.png](_resources/Screenshot%202023-09-16%20at%2017.29.14.png)
 
@@ -721,7 +722,7 @@
    kubectl get secret --namespace monitoring grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
    ```
 
-4. Click the "Log in" button. You should now be directed to the main Grafana page.
+4. Click the "Log in" button. You should now enter to the Grafana main webpage.
 
    ![Screenshot 2023-09-16 at 17.39.55.png](_resources/Screenshot%202023-09-16%20at%2017.39.55.png)
 

@@ -69,7 +69,7 @@
 
 ### Solution
 
-### 1. Setting up the project
+### 1. Project Setup
 
 1. Begin by forking the repository to your personal GitHub account. Uncheck the "Copy main branch only" option.
 
